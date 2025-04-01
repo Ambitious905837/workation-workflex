@@ -1,0 +1,125 @@
+.workation-container {
+  padding: 24px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin: 24px 0;
+}
+
+.workation-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+}
+
+.workation-table th {
+  background-color: #f5f7fa;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-align: left;
+  padding: 16px;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid #eaecef;
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+.workation-table th:hover {
+  background-color: #eef1f5;
+}
+
+.workation-table th i.pi {
+  margin-left: 8px;
+  font-size: 0.9rem;
+  color: #6c757d; /* Changed from #f6a704 (orange) to a medium gray */
+  vertical-align: middle;
+}
+
+.workation-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #eef0f5;
+  color: #3c4858;
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+.workation-table tbody tr {
+  transition: background-color 0.15s ease-in-out;
+}
+
+.workation-table tbody tr:hover {
+  background-color: #f8f9fc;
+}
+
+.workation-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.country-flag {
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.risk-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.risk-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 16px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.high-risk {
+  background-color: rgba(235, 87, 87, 0.1);
+  color: #d9534f;
+}
+
+.low-risk {
+  background-color: rgba(255, 139, 0, 0.1);
+  color: #f0ad4e;
+}
+
+.no-risk {
+  background-color: rgba(0, 130, 110, 0.1);
+  color: #00826e;
+}
+
+/* For better mobile experience */
+@media screen and (max-width: 768px) {
+  .workation-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .workation-container {
+    padding: 16px;
+    margin: 16px 0;
+  }
+  
+  .workation-table th,
+  .workation-table td {
+    padding: 12px;
+  }
+}
+
+/* Remove previous sort-indicator styles if they exist */
+.sort-indicator {
+  display: none;
+}

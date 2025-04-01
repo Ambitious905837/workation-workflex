@@ -1,0 +1,70 @@
+<div class="workation-container">
+  <table class="workation-table">
+    <thead>
+      <tr>
+        <th (click)="sort('employee')">
+          Employee
+          <i *ngIf="sortColumn === 'employee'" class="pi pi-sort"></i>
+        </th>
+        <th (click)="sort('origin')">
+          Origin
+          <i *ngIf="sortColumn === 'origin'" class="pi pi-sort"></i>
+        </th>
+        <th (click)="sort('destination')">
+          Destination
+          <i *ngIf="sortColumn === 'destination'" class="pi pi-sort"></i>
+        </th>
+        <th (click)="sort('start')">
+          Start
+          <i *ngIf="sortColumn === 'start'" class="pi pi-sort"></i>
+        </th>
+        <th (click)="sort('end')">
+          End
+          <i *ngIf="sortColumn === 'end'" class="pi pi-sort"></i>
+        </th>
+        <th (click)="sort('workingDays')">
+          Working days
+          <i *ngIf="sortColumn === 'workingDays'" class="pi pi-sort"></i>
+        </th>
+        <th (click)="sort('risk')">
+          Risk
+          <i *ngIf="sortColumn === 'risk'" class="pi pi-sort"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let workation of workations">
+        <td>{{ workation.employee }}</td>
+        <td>
+          <img [src]="getCountryFlag(workation.origin)" alt="{{ workation.origin }} flag" class="country-flag">
+          {{ workation.origin }}
+        </td>
+        <td>
+          <img [src]="getCountryFlag(workation.destination)" alt="{{ workation.destination }} flag" class="country-flag">
+          {{ workation.destination }}
+        </td>
+        <td>{{ formatDate(workation.start) }}</td>
+        <td>{{ formatDate(workation.end) }}</td>
+        <td>{{ workation.workingDays }}</td>
+        <td>
+          <span [class]="'risk-badge ' + getRiskClass(workation.risk)">
+            <!-- Inline SVG for risk icons -->
+            <svg *ngIf="workation.risk === 'HIGH'" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" class="risk-icon">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M9.99999 1.66669C7.80628 3.63471 4.97284 4.73965 2.02596 4.77629C1.91501 5.43893 1.85699 6.11887 1.85699 6.81306C1.85699 12.1314 5.25669 16.6559 9.99999 18.3334C14.7433 16.6569 18.143 12.1325 18.143 6.81408C18.143 6.1209 18.086 5.43893 17.974 4.77731C15.027 4.74039 12.1935 3.63507 9.99999 1.66669ZM7.44466 6.9427C7.21221 6.73349 6.83532 6.73349 6.60287 6.9427C6.37041 7.15191 6.37041 7.4911 6.60287 7.70031L9.15816 10.0001L6.60287 12.2998C6.37041 12.5091 6.37041 12.8482 6.60287 13.0575C6.83532 13.2667 7.21221 13.2667 7.44466 13.0575L9.99996 10.7577L12.5552 13.0575C12.7877 13.2667 13.1646 13.2667 13.397 13.0575C13.6295 12.8482 13.6295 12.5091 13.397 12.2998L10.8418 10.0001L13.397 7.70031C13.6295 7.4911 13.6295 7.15191 13.397 6.9427C13.1646 6.73349 12.7877 6.73349 12.5552 6.9427L9.99996 9.24246L7.44466 6.9427Z" fill="#DB4446"/>
+            </svg>
+            
+            <svg *ngIf="workation.risk === 'NO'" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" class="risk-icon">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.02596 4.77629C4.97284 4.73965 7.80628 3.63471 9.99999 1.66669C12.1935 3.63507 15.027 4.74039 17.974 4.77731C18.086 5.43893 18.143 6.1209 18.143 6.81408C18.143 12.1325 14.7433 16.6569 9.99999 18.3334C5.25669 16.6559 1.85699 12.1314 1.85699 6.81306C1.85699 6.11887 1.91501 5.43893 2.02596 4.77629ZM13.7732 8.55057C13.9587 8.35859 14.0613 8.10148 14.0589 7.83459C14.0566 7.56771 13.9496 7.31242 13.7608 7.12369C13.5721 6.93497 13.3168 6.82792 13.0499 6.8256C12.7831 6.82328 12.5259 6.92588 12.334 7.11129L8.98211 10.4632L7.666 9.14704C7.47403 8.96163 7.21691 8.85903 6.95003 8.86135C6.68314 8.86367 6.42785 8.97072 6.23913 9.15944C6.0504 9.34816 5.94336 9.60346 5.94104 9.87034C5.93872 10.1372 6.04131 10.3943 6.22673 10.5863L8.26248 12.6221C8.45335 12.8129 8.71221 12.9201 8.98211 12.9201C9.25202 12.9201 9.51087 12.8129 9.70175 12.6221L13.7732 8.55057Z" fill="#00826E"/>
+            </svg>
+            
+            <svg *ngIf="workation.risk === 'LOW'" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" class="risk-icon">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.02596 4.77629C4.97284 4.73965 7.80628 3.63471 9.99999 1.66669C12.1935 3.63507 15.027 4.74039 17.974 4.77731C18.086 5.43893 18.143 6.1209 18.143 6.81408C18.143 12.1325 14.7433 16.6569 9.99999 18.3334C5.25669 16.6559 1.85699 12.1314 1.85699 6.81306C1.85699 6.11887 1.91501 5.43893 2.02596 4.77629ZM13.7732 8.55057C13.9587 8.35859 14.0613 8.10148 14.0589 7.83459C14.0566 7.56771 13.9496 7.31242 13.7608 7.12369C13.5721 6.93497 13.3168 6.82792 13.0499 6.8256C12.7831 6.82328 12.5259 6.92588 12.334 7.11129L8.98211 10.4632L7.666 9.14704C7.47403 8.96163 7.21691 8.85903 6.95003 8.86135C6.68314 8.86367 6.42785 8.97072 6.23913 9.15944C6.0504 9.34816 5.94336 9.60346 5.94104 9.87034C5.93872 10.1372 6.04131 10.3943 6.22673 10.5863L8.26248 12.6221C8.45335 12.8129 8.71221 12.9201 8.98211 12.9201C9.25202 12.9201 9.51087 12.8129 9.70175 12.6221L13.7732 8.55057Z" fill="#FF8B00"/>
+            </svg>
+            
+            {{ getRiskLabel(workation.risk) }} risk
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
